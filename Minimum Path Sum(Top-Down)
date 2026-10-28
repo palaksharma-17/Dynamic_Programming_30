@@ -1,0 +1,27 @@
+## LeetCode 64
+
+class Solution {
+    public int minPathSum(int[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
+        int[][] dp=new int[m][n];
+        for(int[] row:dp){
+            Arrays.fill(dp,-1);
+        }
+        return path(grid,m,n,0,0,dp);
+    }
+    public int path(int[][] grid,int m,int n,int r,int c,int[][] dp){
+        if(r==m-1 && c==n-1){
+            return grid[r][c];
+        }
+        if(r>=m || c>=n){
+            return Integer.MAX_VALUE;
+        }
+        if(dp[r][c]!=-1){
+            return dp[r][c];
+        }
+        int a=path(grid,m,n,r+1,c,dp);
+        int b=path(grid,m,n,r,c+1,dp);
+        return dp[r][c]=grid[r][c]+Math.min(a,b);
+    }
+}
